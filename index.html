@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
+	</head>
+	<body>
+<script >
+//script for getting and displaying data
+	$(document).ready(function(){
+		//make HTTP request
+        $.get("http://api.vsapi01.com/search/by-url?apikey=c32a6d6f-d22f-49c6-87b6-b4a61cd4be30&url=https://product-images2.therealreal.com/CHA78071_1_enlarged.jpg&index=real-bags", function(data){
+            // console.log("request came through");  
+            //go through returned JSON data, display product name, image, and url              
+         	data['images'].forEach(function(image,index,images) { 
+            var bagName = image.title;
+            // var bagDesc = image.description;
+            var clickURL = image.pageUrl;
+            var pictureURL = image.imageUrl;
+  			var image = "<img src=\""+pictureURL+"\"/>";
+            var clickableImage = "<a href=\"" + clickURL + "\">" + image + "</a>";
+            var wholeImage = "<div>"  + clickableImage + "<br>" + bagName + "<br> " + "<div>";                      
+            $( ".display" ).append(wholeImage);
+            });
+       	});
+     });
+</script>
+		<!-- display formatted data -->
+			<div class="display"></div>
+
+	</body>
+</html>
